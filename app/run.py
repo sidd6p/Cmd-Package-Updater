@@ -1,4 +1,3 @@
-from ast import arg
 import getopt, sys
 
 args_list = sys.argv[1:]
