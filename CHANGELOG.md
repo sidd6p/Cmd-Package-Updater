@@ -3,13 +3,12 @@
 ## v1.0.0
 
 ### Added or Changed
-- Added this changelog :)
-- Fixed typos in both templates
-- Back to top links
-- Added more "Built With" frameworks/libraries
-- Changed table of contents to start collapsed
-- Added checkboxes for major features on roadmap
+- Changed this changelog :)
+- Chnaged readme.md
+- Added app folder
+- Added .gitignore
+- Added -i and --input functionality
+
 
 ### Removed
-
-- Some packages/libraries from acknowledgements I no longer use
+- Some files/folder that are no longer useful for this project
