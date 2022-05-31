@@ -1,7 +1,9 @@
-def show(data):
-    print("{:<30} | {:}".format(data[0][0], data[0][1]))
-    data = data[1:]
-    print("__________________________________________________________________________________")
+def show(data, dependency_version):
+    print("{:<30} | {:<55} | {:<10} | {:<30}".format("name", "repo", "version", "version_satisfied"))
+    print("_"*130)
+    print("")
     for row in data:
-        name, repo = row[0], row[1]
-        print("{:<30} | {:}".format(name, repo))
+        name, repo, version, version_satisfied = row.name, row.url, row.version, "False"
+        if row.version >= dependency_version:
+            version_satisfied = "True"
+        print("{:<30} | {:<55} | {:<10} | {:<30}".format(name, repo, version, version_satisfied))

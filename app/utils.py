@@ -2,7 +2,7 @@ import base64
 import json
 import requests
 
-def getUserName(url):
+def getUserRepoName(url):
     data = url.split("/")
     userName = ""
 
