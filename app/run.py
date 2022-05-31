@@ -1,5 +1,6 @@
-import readFile, showTable
+import readFile
 import getopt, sys
+import repo
 
 
 args_list = sys.argv[1:]
@@ -9,16 +10,22 @@ long_option = ["input=", "update"]
 
 try:
     arguments, values = getopt.getopt(args_list, options, long_option)
+    dependency = {"name": sys.argv[-1].split("@")[0], "version": sys.argv[-1].split("@")[1]}
+    repo.Repo.dependency = dependency
+
     data = ""
 
     for current_arguments, current_values in arguments:
         if (current_arguments.lower() in ("-i", "--input")):
-            data = readFile.read(current_values)
+            data = readFile.read(current_values)[1:]
         elif (current_arguments.lower() in ("-u", "--update")):
             print ("Updating the file....")
+    repos = []
+    for i in data:
+        item = repo.Repo(i[0], i[1])
+        print(item)
+        repos.append(item)
 
-    if (len(data) != 0):
-        showTable.show(data)
 
 except getopt.error as error:
     print (str(error))
