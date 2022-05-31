@@ -26,7 +26,6 @@ dyte-vit-2022-sidd6p
         ├───__init__.py
 ## Run Locally
 
-- [Deployment Video](https://youtu.be/AL4ydKZyoLo)
 
 
 Clone the project
