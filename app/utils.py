@@ -2,10 +2,16 @@ import base64
 import json
 import requests
 import csv
+import Repo
+import os
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 def getUserRepoName(url):
     data = url.split("/")
-    userName = ""
 
     idx = len(data) - 1
     while (idx >= 0):
@@ -16,6 +22,7 @@ def getUserRepoName(url):
         idx -= 1
     return None
     
+
 
 def findVersion(repo, dependency_name):
     request_url = "https://api.github.com/repos/{0}/{1}/contents/{2}".format(repo["user"], repo["repo"], "package.json")
@@ -31,6 +38,8 @@ def findVersion(repo, dependency_name):
     else:
         return None
 
+
+
 def read(file_name):
     data = []
     with open(file_name, 'r') as input_file:
@@ -39,6 +48,8 @@ def read(file_name):
         for line in csv_reader:
             data.append(list(line))
     return data
+
+
 
 def show(data, dependency_version):
     print("{:<30} | {:<55} | {:<10} | {:<30}".format("name", "repo", "version", "version_satisfied"))
@@ -49,3 +60,31 @@ def show(data, dependency_version):
         if row.version >= dependency_version:
             version_satisfied = "True"
         print("{:<30} | {:<55} | {:<10} | {:<30}".format(name, repo, version, version_satisfied))
+
+
+
+def updateRepo(repos):
+    for repo in repos:
+        if (repo.version < Repo.Repo.dependency["version"]):
+            if (fork(repo)):
+                pullRequest()
+
+
+
+def fork(repo):
+    url = "https://api.github.com/repos/{0}/{1}/forks".format(repo.repo["user"], repo.repo["repo"])
+    header = {
+        'Authorization': 'token ' + os.getenv('PAT'),
+        "Content-Type": "application/vnd.github.v3+json"
+    }
+
+    res = requests.post(url, headers=header)
+    if (res.status_code != 200):
+        return False
+    else: 
+        return True 
+
+
+
+def pullRequest():
+    pass

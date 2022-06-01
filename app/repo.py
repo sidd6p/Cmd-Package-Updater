@@ -2,6 +2,7 @@ import utils
 
 class Repo:
     dependency = None
+    update = False
     def __init__(self, name, url):
         self.name = name
         self.url = url
