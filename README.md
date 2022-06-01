@@ -9,21 +9,20 @@
 
 dyte-vit-2022-sidd6p
 
-    │   CHANGELOG.md
-    │   LICENSE.txt
-    │   README.md
+    │───CHANGELOG.md
+    │───LICENSE.txt
+    │───README.md
+    ├───input.csv
+    ├───run.py
     │
     ├───.github
     │       .keep
     │
     └───app
-        ├───input.csv
-        ├───readFile.py
-        ├───repo.py
-        ├───run.py
-        ├───showTable.py
+        ├───Repo.py
         ├───utils.py
         ├───__init__.py
+        ├───.env
 ## Run Locally
 
 
@@ -62,7 +61,13 @@ run the project
     - If repo dependecy version is less, then False
     - Else True
 
-    
+ 
+## Demo
+
+<img width="auto" alt="image" src="https://user-images.githubusercontent.com/91800813/171468508-5ad60028-1274-4180-a5a8-d9f2a3cf3cb2.png">
+
+<img width="auto" alt="image" src="https://user-images.githubusercontent.com/91800813/171468543-04162969-95ef-4d75-8981-c7b6b3ac61d6.png">
+
 ## Tech & Tool
 
 __Language__: [Python 3.10.1](https://www.python.org/)
