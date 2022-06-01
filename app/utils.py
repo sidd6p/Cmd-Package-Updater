@@ -285,6 +285,7 @@ def makeCommit(repo):
             repo.pull_request = res.url
             return True
         else: 
+            #print(res.json())
             return False
     except:
         return False
