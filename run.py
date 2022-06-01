@@ -26,7 +26,7 @@ try:
     
     if (Repo.Repo.update == True):
         utils.updateRepo(repos)
-
+    
     utils.show(repos, dependency["version"])
 
 
