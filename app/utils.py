@@ -1,6 +1,7 @@
 import base64
 import json
 import requests
+import csv
 
 def getUserRepoName(url):
     data = url.split("/")
@@ -29,3 +30,22 @@ def findVersion(repo, dependency_name):
         return dependencies[dependency_name][1:]
     else:
         return None
+
+def read(file_name):
+    data = []
+    with open(file_name, 'r') as input_file:
+        csv_reader = csv.reader(input_file)
+
+        for line in csv_reader:
+            data.append(list(line))
+    return data
+
+def show(data, dependency_version):
+    print("{:<30} | {:<55} | {:<10} | {:<30}".format("name", "repo", "version", "version_satisfied"))
+    print("_"*130)
+    print("")
+    for row in data:
+        name, repo, version, version_satisfied = row.name, row.url, row.version, "False"
+        if row.version >= dependency_version:
+            version_satisfied = "True"
+        print("{:<30} | {:<55} | {:<10} | {:<30}".format(name, repo, version, version_satisfied))

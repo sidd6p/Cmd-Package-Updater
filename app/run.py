@@ -1,6 +1,6 @@
-import readFile, showTable
 import getopt, sys
 import repo
+import utils
 
 
 args_list = sys.argv[1:]
@@ -17,13 +17,13 @@ try:
 
     for current_arguments, current_values in arguments:
         if (current_arguments.lower() in ("-i", "--input")):
-            data = readFile.read(current_values)[1:]
+            data = utils.read(current_values)[1:]
         elif (current_arguments.lower() in ("-u", "--update")):
             print ("Updating the file....")
     for i in data:
         item = repo.Repo(i[0], i[1])
         repos.append(item)
-    showTable.show(repos, dependency["version"])
+    utils.show(repos, dependency["version"])
 
 
 except getopt.error as error:
