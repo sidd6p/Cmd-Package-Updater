@@ -140,15 +140,25 @@ def show(repos, dependency_version):
             NULL
     '''
     try:
-        print("{:<30} | {:<55} | {:<10} | {:<30}".format("name", "repo", "version", "version_satisfied"))
-        print("_"*130)
-        print("")
+        if (Repo.Repo.update == False):
+            print("{:<30} | {:<55} | {:<10} | {:<30}".format("name", "repo", "version", "version_satisfied"))
+            print("_"*130)
+            print("")
+            for repo in repos:
+                name, url, version, version_satisfied = repo.name, repo.url, repo.version, "False"
+                if repo.version >= dependency_version:
+                    version_satisfied = "True"
+                print("{:<30} | {:<55} | {:<10} | {:<30}".format(name, url, version, version_satisfied))
+        else:
+            print("{:<30} | {:<50} | {:<10} | {:<25} | {}".format("name", "repo", "version", "version_satisfied", "update"))
+            print("_"*130)
+            print("")
+            for repo in repos:
+                name, url, version, version_satisfied, pull_request = repo.name, repo.url, repo.version, "False", repo.pull_request
+                if repo.version >= dependency_version:
+                    version_satisfied = "True"
+                print("{:<30} | {:<50} | {:<10} | {:<25} | {}".format(name, url, version, version_satisfied, pull_request))
 
-        for repo in repos:
-            name, url, version, version_satisfied = repo.name, repo.url, repo.version, "False"
-            if repo.version >= dependency_version:
-                version_satisfied = "True"
-            print("{:<30} | {:<55} | {:<10} | {:<30}".format(name, url, version, version_satisfied))
     except:
         pass
 ##################################################################################################
@@ -247,7 +257,15 @@ def makeChanges(dependency, repo):
 
 ##################################################################################################
 def makeCommit(repo):
-    return True
+    '''
+        make commite update package.json 
+
+        Parameters:
+            repo (Repo Obj): repo
+                
+        Returns:
+            success (boolean): True if commit is successful else False
+    '''
     try:
         content = repo.content
         content = json.dumps(content)
@@ -264,6 +282,7 @@ def makeCommit(repo):
         res = requests.put(request_url, headers=header, data=json.dumps(body))
         print()
         if (res.status_code == 200):
+            repo.pull_request = res.url
             return True
         else: 
             return False

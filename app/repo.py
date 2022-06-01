@@ -32,6 +32,7 @@ class Repo:
         self.repo = utils.getUserRepoName(self.url) or None
         self.content = utils.getContent(self.repo) or None
         self.version = utils.findVersion(self.content,  Repo.dependency["name"]) or None
+        self.pull_request = None
     ##################################################################################################
 
 
