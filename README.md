@@ -53,7 +53,7 @@ run the project
 
 ## Environment Variables
 
-To run this project locally, you will need to add the following environment variables inside the empty file app/.env
+To run this project locally, you will need to add the following environment variables inside the empty file [app/.env](https://github.com/dyte-submissions/dyte-vit-2022-sidd6p/blob/main/app/.env)
 
 ```bash 
 USER_NAME="<your_github_username>"
