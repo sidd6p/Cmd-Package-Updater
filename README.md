@@ -39,12 +39,6 @@ Go to the dyte-vit-2022-sidd6p directory
   cd dyte-vit-2022-sidd6p
 ```
 
-Go to the app directory
-```bash
-  cd app
-```
-
-
 Install dependencies
 
 ```bash
