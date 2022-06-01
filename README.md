@@ -51,6 +51,15 @@ run the project
 ```
 
 
+## Environment Variables
+
+To run this project locally, you will need to add the following environment variables inside the empty file app/.env
+
+```bash 
+USER_NAME="<your_github_username>"
+
+PAT="<Personal_Access_Token>"
+```
 
 ## Feature
 
