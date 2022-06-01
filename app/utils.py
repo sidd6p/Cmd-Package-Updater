@@ -67,7 +67,11 @@ def updateRepo(repos):
     for repo in repos:
         if (repo.version < Repo.Repo.dependency["version"]):
             if (fork(repo)):
-                pullRequest()
+                newData = makeChanges(Repo.Repo.dependency, repo.repo["repo"])
+                if (newData != False):
+                   pullRequest()
+                   return True
+    return False
 
 
 
@@ -79,11 +83,32 @@ def fork(repo):
     }
 
     res = requests.post(url, headers=header)
-    if (res.status_code != 200):
+    if (res.status_code != 202):
         return False
     else: 
         return True 
 
+
+
+
+def makeChanges(dependency, repo_name):
+    request_url = "https://api.github.com/repos/{0}/{1}/contents/{2}".format(os.getenv('USER_NAME'), repo_name, "package.json")
+    res = requests.get(request_url)
+
+    if res.status_code == 200:
+        res = res.json()
+        content = base64.b64decode(res['content'])
+        json_string = content.decode('utf-8')
+        json_data = json.loads(json_string)
+        d = json_data["dependencies"][dependency["name"]]
+        if (d[0].isnumeric() == True or d[0] == '.'):
+            d = dependency["dependency_version"]
+        else:
+            d = d[0] + dependency["version"]
+        json_data["dependencies"][dependency["name"]] = d
+        return json_data
+    else:
+        return False
 
 
 def pullRequest():
