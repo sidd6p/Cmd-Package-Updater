@@ -2,9 +2,9 @@ import base64
 import json
 import requests
 import csv
-import Repo
 import os
 
+from . import Repo
 from dotenv import load_dotenv
 
 load_dotenv()

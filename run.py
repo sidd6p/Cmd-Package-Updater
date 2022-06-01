@@ -1,6 +1,5 @@
 import getopt, sys
-import Repo
-import utils
+from app import utils, Repo
 
 
 args_list = sys.argv[1:]
