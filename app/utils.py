@@ -173,13 +173,9 @@ def updateRepo(repos):
         for repo in repos:
             if (repo.version < Repo.Repo.dependency["version"]):
                 if (fork(repo)):
-                    print("forked")
                     if (makeChanges(Repo.Repo.dependency, repo) != False):
-                        print("changed")
                         if makeCommit(repo):
-                            print("commited")
                             if (pullRequest(repo)) != False:
-                                print("commited")
                                 return success
                             else:
                                 success = False
@@ -237,7 +233,6 @@ def makeChanges(dependency, repo):
         Returns:
             success (boolean): True if update is successful else False
     '''
-    
     try:
         initial = repo.content["dependencies"][dependency["name"]][0]
         if (initial.isnumeric() == False and initial != '.'):
@@ -252,23 +247,22 @@ def makeChanges(dependency, repo):
 
 ##################################################################################################
 def makeCommit(repo):
+    return True
     try:
         content = repo.content
         content = json.dumps(content)
         content = content.encode('utf-8')
         content = base64.b64encode(content)
-
-        request_url = "https://api.github.com/repos/{0}/{1}/contents/{2}".format(os.getenv('USER_NAME'), repo["repo"], "package.json")
+        request_url = "https://api.github.com/repos/{0}/{1}/contents/{2}".format(os.getenv('USER_NAME'), repo.repo["repo"], "./package.json")
         header = {
             'Authorization': 'token ' + os.getenv('PAT'),
-            "Content-Type": "application/vnd.github.v3+json"
         }
         body = {
             "message": "Updated the package.json",
-            "content": content
+            "content": str(content)
         }
-
-        res = requests.put(request_url, headers=header, data=body)
+        res = requests.put(request_url, headers=header, data=json.dumps(body))
+        print()
         if (res.status_code == 200):
             return True
         else: 
@@ -290,5 +284,22 @@ def pullRequest(repo):
         Returns:
             success (boolean): True if commit is successful else False
     '''
-    pass
+    try:
+        request_url = "https://api.github.com/repos/{0}/{1}/pulls".format(os.getenv('USER_NAME'), repo.repo["name"])
+        header = {
+            'Authorization': 'token ' + os.getenv('PAT'),
+        }
+        body = {
+            "title": "Update the package.json",
+            "body": "Update the dependency version",
+            "head": "main",
+            "base": "main"
+        }
+        res = requests.post(request_url, headers=header, data=json.dumps(body))
+        if (res.status_code == 200):
+            return True
+        else: 
+            return False
+    except:
+        return False
 ##################################################################################################
