@@ -7,7 +7,7 @@
 
 ## Directory stracture
 
-dyte-vit-2022-sidd6p
+Cmd-Package-Update
 
     │───CHANGELOG.md
     │───LICENSE.txt
@@ -30,12 +30,12 @@ dyte-vit-2022-sidd6p
 Clone the project
 
 ```bash
-  git clone https://github.com/dyte-submissions/dyte-vit-2022-sidd6p.git
+  git clone https://github.com/sidd6p/Cmd-Package-Update
 ```
 
-Go to the dyte-vit-2022-sidd6p directory
+Go to the Cmd-Package-Update directory
 ```bash
-  cd dyte-vit-2022-sidd6p
+  cd Cmd-Package-Update
 ```
 
 Install dependencies
@@ -53,7 +53,7 @@ run the project
 
 ## Environment Variables
 
-To run this project locally, you will need to add the following environment variables inside the empty file [app/.env](https://github.com/dyte-submissions/dyte-vit-2022-sidd6p/blob/main/app/.env)
+To run this project locally, you will need to add the following environment variables inside the empty file [app/.env](https://github.com/sidd6p/Cmd-Package-Update/blob/main/app/.env)
 
 ```bash 
 USER_NAME="<your_github_username>"
